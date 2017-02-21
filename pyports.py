@@ -1,3 +1,12 @@
+print("This program is not done.")
+exit(0)
+
+#Title: PyPorts.py
+#Author: WonkeyMonkey
+#
+#PyPorts.py -- Listens on TCP sockets and Records
+
+
 import sys, socket, argparse
 assert sys.version_info.major == 2
 
@@ -38,5 +47,8 @@ if args.range:
         last = int(last)
         for p in range(first, last+1):
             portset.add(int(p))
+
+
+
 
 
