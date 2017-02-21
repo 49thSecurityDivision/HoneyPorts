@@ -1,5 +1,5 @@
 print("This program is not done.")
-exit(0)
+
 
 #Title: PyPorts.py
 #Author: WonkeyMonkey
@@ -7,7 +7,11 @@ exit(0)
 #PyPorts.py -- Listens on TCP sockets and Records The Port
 
 
-import sys, socket, argparse
+
+backlog = 5
+
+import sys,argparse, time
+import socket, select
 assert sys.version_info.major == 2
 
 #Sets are faster than list for checking if a value in inside of an object
@@ -28,6 +32,32 @@ def checkRangeArg(value):
                 return value
                 
     raise argparse.ArgumentTypeError("Invalid Range Value! Example: -r 1-65535")
+
+
+def listener(portset):
+    sockets = []
+
+    try:
+        for p in portset:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.bind(('', p))
+            s.listen(backlog)
+            sockets.append(s)
+
+        running = True
+        while True:
+            time.sleep(1) #No, this is not best way. Get over it.
+            readable, writable, errored = select.select(sockets, [], [])
+            for s in readable:
+                sock, address = s.accept()
+                print(address)
+                sock.close()
+                
+    except:
+        for s in sockets:
+            s.close()
+        
+
     
 
 parser = argparse.ArgumentParser()
@@ -47,6 +77,8 @@ if args.range:
         last = int(last)
         for p in range(first, last+1):
             portset.add(int(p))
+
+listener(list(portset))
 
 
 
