@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+
 print("This program is not done.")
 exit(0)
 
@@ -27,9 +29,9 @@ def checkRangeArg(value):
 
             if first < last:
                 return value
-                
+
     raise argparse.ArgumentTypeError("Invalid Range Value! Example: -r 1-65535")
-    
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-p', '--port', nargs='*', type=int)
@@ -48,7 +50,6 @@ if args.range:
         last = int(last)
         for p in range(first, last+1):
             portset.add(int(p))
-
 
 
 
