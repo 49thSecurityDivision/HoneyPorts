@@ -13,3 +13,6 @@ def checkRangeArg(value):
 parser = argparse.ArgumentParser()
 parser.add_argument('-p', '--port', type=int, nargs='*', choices=xrange(1,65535))
 parser.add_argument('-r', '--range', type=checkRangeArg)
+
+args = parser.parse_args()
+
