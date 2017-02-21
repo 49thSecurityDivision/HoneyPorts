@@ -4,10 +4,11 @@ exit(0)
 #Title: PyPorts.py
 #Author: WonkeyMonkey
 #
-#PyPorts.py -- Listens on TCP sockets and Records
+#PyPorts.py -- Listens on TCP sockets and Records The Port
 
 
 import sys, socket, argparse
+import threading #we are using threading instead of multiprocessing here on purpose, we don't need to tie up other cores
 assert sys.version_info.major == 2
 
 #Sets are faster than list for checking if a value in inside of an object
@@ -24,7 +25,7 @@ def checkRangeArg(value):
 
         if ((first > 0) and (first <= 65535)) and ((last > 0) and (last <65535)):
 
-            if first != last:
+            if first < last:
                 return value
                 
     raise argparse.ArgumentTypeError("Invalid Range Value! Example: -r 1-65535")
