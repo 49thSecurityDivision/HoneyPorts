@@ -8,7 +8,6 @@ exit(0)
 
 
 import sys, socket, argparse
-import threading #we are using threading instead of multiprocessing here on purpose, we don't need to tie up other cores
 assert sys.version_info.major == 2
 
 #Sets are faster than list for checking if a value in inside of an object
